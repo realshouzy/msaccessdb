@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "msaccessdb"
+authors = [{ name = "Gord Thompson", email = "gord@gordthompson.com" }]
+maintainers = [{ name = "realshouzy" }]
+description = "Create a new empty Access database."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: Apache Software License",
+]
+requires-python = ">=3.8"
+dynamic = ["version"]
+
+[project.urls]
+Original = "https://github.com/gordthompson/msaccessdb"
+Fork = "https://github.com/realshouzy/msaccessdb"
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+
+[tool.setuptools.dynamic]
+version = { attr = "msaccessdb.__version__" }
+
+[tool.setuptools.package-data]
+msaccessdb = ["py.typed"]
+
+[project.optional-dependencies]
+# keep in sync with requirements-dev.txt
+dev = ["bandit", "black", "isort", "mypy", "pre-commit", "pylint", "ruff"]
+
+[tool.black]
+target-version = ["py312", "py311", "py310", "py39", "py38"]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+strict = true
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+warn_redundant_casts = true
+show_error_codes = true
+disallow_subclassing_any = true
+disallow_untyped_decorators = true
+warn_return_any = true
+strict_equality = true
+no_implicit_reexport = true
+no_implicit_optional = true
+warn_unused_ignores = true
+
+[tool.ruff]
+lint.select = ["ALL"]
+lint.ignore = ["D400"]
+lint.fixable = ["ALL"]
+lint.unfixable = []
+show-fixes = true
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint.isort]
+known-first-party = ["msaccessdb"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"

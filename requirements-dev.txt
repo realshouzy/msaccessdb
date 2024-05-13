@@ -1,0 +1,8 @@
+-e .
+bandit
+black
+isort
+mypy
+pre-commit
+pylint
+ruff

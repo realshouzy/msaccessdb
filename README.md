@@ -7,18 +7,18 @@ Potentially of interest to `pyodbc` users who:
 
 - need to create a new Access database so they can dump information into it, or
 
-- want to create a temporary database to help work around issues regarding performance, prevent "bloat" in the 
+- want to create a temporary database to help work around issues regarding performance, prevent "bloat" in the
 main database, or avoid the dreaded *"Operation must use an updateable query."* error message.
 
 **Installation:**
 
-    pip install msaccessdb
-  
+    pip install git+https://github.com/realshouzy/msaccessdb
+
 **Usage:**
 
     import msaccessdb
     msaccessdb.create(r'C:\path\to\new.accdb')
-    
+
 **Notes:**
 
 1. This package does not need the Access Database Engine to create a database.

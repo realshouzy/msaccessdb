@@ -1,49 +1,56 @@
-# Copyright 2019 Gordon D. Thompson
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+"""Copyright 2019 Gordon D. Thompson
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+from __future__ import annotations
+
+__all__: Final[tuple[str]] = ("create",)
 
 import base64
 import gzip
-import os
 import shutil
 import tempfile
+from pathlib import Path
+from typing import Final
 
-"""Create a new (empty) Access database."""
 
-
-def create(filespec):
+def create(filespec: Path) -> None:
     """Create a new (empty) Access database.
 
     Note that no effort is made to avoid overwriting an existing file.
 
-    :type filespec: str
+    :type filespec: Path
     """
-    if filespec.lower().endswith(".accdb"):
-        _unpack_and_save(_accdb_gz_b64, filespec)
+    if filespec.suffix == ".accdb":
+        _unpack_and_save(_ACCDB_GZ_B64, filespec)
     else:
-        _unpack_and_save(_mdb_gz_b64, filespec)
+        _unpack_and_save(_MDB_GZ_B64, filespec)
 
 
-def _unpack_and_save(packed_data, filespec):
+def _unpack_and_save(packed_data: str, filespec: Path) -> None:
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-        tmp_file_spec = tmp_file.name
+        tmp_file_spec: Path = Path(tmp_file.name)
         tmp_file.write(base64.b64decode(packed_data))
-    with gzip.open(tmp_file_spec, 'rb') as f_in, open(filespec, 'wb') as f_out:
+    with gzip.open(tmp_file_spec, mode="rb") as f_in, filespec.open(
+        mode="wb",
+    ) as f_out:
         shutil.copyfileobj(f_in, f_out)
-    os.remove(tmp_file_spec)
+    Path.unlink(tmp_file_spec)
 
 
-_mdb_gz_b64 = """\
+_MDB_GZ_B64: Final[str] = (
+    """
 H4sICIenn1gC/25ldzIwMDMubWRiAO2de2wcRx3Hf7O7Pt/d3u6eLyEtVaOaqg+EkjQvuVVDwa9a
 jWXHdZxQQlCJ7fOrfp3OTpqkhVxTItFWIhVQVFBRVNIKRaColVpAUKGKRwwFqUAhKiBIpUaoVWP+
 qKgIIHL8Znb39u72znWJiWP3+9l473fzm/nNY3cdf2fmbBJEPdO9E+nebLq+fWC6vrWZOImen9D7
@@ -85,8 +92,10 @@ f853gqSmWPSZux6xjUznltH2HT/flNu7++0NZ7/07cg/vnPbVu30y6d/NLvlabPh+j81v/Xc5g9l
 vzSUvSHjVys1Rv5CSUv8pEvcEqkbV/KX35JaQ+npikmRS9o4rtYIt8RYnJa4Ou6SV6stTm+l7rcX
 q9qSy+23pCVIcgV/SZKuJj5CSRc4Y/PpkiesLJcI53J37NvFuQzv4peGL0/SypP+C+45xVAAMAEA
 """
+)
 
-_accdb_gz_b64 = """\
+_ACCDB_GZ_B64: Final[str] = (
+    """
 H4sICBKnn1gC/25ldzIwMDcuYWNjZGIA7d0LbBzHecDx2bu994ukFMl60KTeOsd2JNly0jRAKImm
 LUIkTZG0wiSVROpIieFLlWjVatKYlmQ0doLGeSFukcK1nUBwgQJNmrRImkJJGkcI8kTRFkkRx2mt
 Fkhrt0Wbh522un4zu3uvvaMoifDR1P93urvZmdmZ3b09Ut/O3FFZSvXNDE3lhk7kWnftubu1fbcK
@@ -155,3 +164,4 @@ u64+3bbUp9vm+nS7pj7drqpPtyvr021TfboN1Kdb0ZCuV7dlv5S8LXmm7PdqRpVn6f8pWf6sy1Lx
 6XeW/S+mopblr+UEoOnSWrb7K6q8+cqsLf6sTf6sDf6sdf6sFn9Wsz9rjT9rlT9rpT+ryZ8VqMz6
 f/xJCu4AoAIA
 """
+)

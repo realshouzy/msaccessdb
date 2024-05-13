@@ -1,3 +1,5 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/realshouzy/msaccessdb/master.svg)](https://results.pre-commit.ci/latest/github/realshouzy/msaccessdb/master)
+
 # msaccessdb
 
 A package to create a new (empty) Access database.

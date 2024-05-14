@@ -1,6 +1,6 @@
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/realshouzy/msaccessdb/master.svg)](https://results.pre-commit.ci/latest/github/realshouzy/msaccessdb/master)
-
 # msaccessdb
+
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/realshouzy/msaccessdb/master.svg)](https://results.pre-commit.ci/latest/github/realshouzy/msaccessdb/master)
 
 A package to create a new (empty) Access database.
 Potentially of interest to `pyodbc` users who:

@@ -12,14 +12,14 @@ Potentially of interest to `pyodbc` users who:
 - want to create a temporary database to help work around issues regarding performance, prevent "bloat" in the
 main database, or avoid the dreaded *"Operation must use an updateable query."* error message.
 
-**Installation:**
-
+```shell
     pip install git+https://github.com/realshouzy/msaccessdb
+```
 
-**Usage:**
-
+```python
     import msaccessdb
     msaccessdb.create(r'C:\path\to\new.accdb')
+```
 
 **Notes:**
 

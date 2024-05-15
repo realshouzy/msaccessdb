@@ -46,7 +46,7 @@ def _unpack_and_save(packed_data: str, filespec: Path) -> None:
         mode="wb",
     ) as f_out:
         shutil.copyfileobj(f_in, f_out)
-    Path.unlink(tmp_file_spec)
+    tmp_file_spec.unlink()
 
 
 _MDB_GZ_B64: Final[str] = (

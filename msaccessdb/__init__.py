@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 __all__: list[str] = ["create"]
-__version__: Final[str] = "1.0.0"
+__version__: Final[str] = "1.0.1"
 
 from typing import Final
 

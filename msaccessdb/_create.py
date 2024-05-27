@@ -15,7 +15,7 @@ limitations under the License.
 
 from __future__ import annotations
 
-__all__: Final[tuple[str]] = ("create",)
+__all__: list[str] = ["create"]
 
 import base64
 import gzip

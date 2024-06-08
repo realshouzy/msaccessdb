@@ -34,8 +34,14 @@ def create(filespec: Path) -> None:
     """
     if filespec.suffix.casefold() == ".accdb":
         _unpack_and_save(_ACCDB_GZ_B64, filespec)
-    else:
+    elif filespec.suffix.casefold() == ".mdb":
         _unpack_and_save(_MDB_GZ_B64, filespec)
+    else:
+        err_msg: str = (
+            f"Unsupported file extension '{filespec.suffix}'. "
+            "Expected '.accdb' or '.mdb'."
+        )
+        raise ValueError(err_msg)
 
 
 def _unpack_and_save(packed_data: str, filespec: Path) -> None:

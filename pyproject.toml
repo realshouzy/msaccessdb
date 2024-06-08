@@ -31,13 +31,11 @@ Original = "https://github.com/gordthompson/msaccessdb"
 Fork = "https://github.com/realshouzy/msaccessdb"
 
 [tool.setuptools]
+packages = ["msaccessdb"]
 license-files = ["LICENSE"]
 
 [tool.setuptools.dynamic]
 version = { attr = "msaccessdb.__version__" }
-
-[tool.setuptools.package-data]
-msaccessdb = ["py.typed"]
 
 [project.optional-dependencies]
 # keep in sync with requirements-dev.txt

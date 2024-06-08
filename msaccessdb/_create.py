@@ -32,7 +32,7 @@ def create(filespec: Path) -> None:
 
     :type filespec: Path
     """
-    if filespec.suffix == ".accdb":
+    if filespec.suffix.casefold() == ".accdb":
         _unpack_and_save(_ACCDB_GZ_B64, filespec)
     else:
         _unpack_and_save(_MDB_GZ_B64, filespec)

@@ -48,11 +48,13 @@ def _unpack_and_save(packed_data: str, filespec: Path) -> None:
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         tmp_file_spec: Path = Path(tmp_file.name)
         tmp_file.write(base64.b64decode(packed_data))
-    with gzip.open(tmp_file_spec, mode="rb") as f_in, filespec.open(
-        mode="wb",
-    ) as f_out:
-        shutil.copyfileobj(f_in, f_out)
-    tmp_file_spec.unlink()
+    try:
+        with gzip.open(tmp_file_spec, mode="rb") as f_in, filespec.open(
+            mode="wb",
+        ) as f_out:
+            shutil.copyfileobj(f_in, f_out)
+    finally:
+        tmp_file_spec.unlink()
 
 
 _MDB_GZ_B64: Final[str] = (
